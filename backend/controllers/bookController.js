@@ -10,7 +10,7 @@ const getBooks = async (req, res) => {
   }
 };
 
-// Obtener un libro por ID  
+// Obtener un libro por ID
 const getBookById = async (req, res) => {
   try {
     const book = await Book.findByPk(req.params.id);
