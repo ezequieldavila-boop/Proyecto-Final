@@ -1,6 +1,6 @@
 const Book = require("../models/Book");
 
-// Obtener todos los libros
+// tener todos los libros
 const getBooks = async (req, res) => {
   try {
     const books = await Book.findAll();
@@ -10,7 +10,7 @@ const getBooks = async (req, res) => {
   }
 };
 
-// Obtener un libro por ID
+// buscar libro por id
 const getBookById = async (req, res) => {
   try {
     const book = await Book.findByPk(req.params.id);
@@ -27,7 +27,7 @@ const getBookById = async (req, res) => {
   }
 };
 
-// Crear libro
+// crear un libroo
 const createBook = async (req, res) => {
   try {
     const book = await Book.create(req.body);
@@ -38,7 +38,7 @@ const createBook = async (req, res) => {
   }
 };
 
-// Actualizar libro
+// para actualizar un libro
 const updateBook = async (req, res) => {
   try {
     const book = await Book.findByPk(req.params.id);
@@ -57,7 +57,7 @@ const updateBook = async (req, res) => {
   }
 };
 
-// Eliminar libro
+//  para borrar un libro
 const deleteBook = async (req, res) => {
   try {
     const book = await Book.findByPk(req.params.id);
