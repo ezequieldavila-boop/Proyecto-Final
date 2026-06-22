@@ -12,9 +12,9 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.get("/", authMiddleware, getBooks);
+router.get("/", getBooks);
 
-router.get("/:id", authMiddleware, getBookById);
+router.get("/:id", getBookById);
 
 router.post("/", authMiddleware, createBook);
 

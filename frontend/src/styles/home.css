@@ -1,0 +1,17 @@
+.hero-btn{
+  margin-top:30px;
+  background:#F4B400;
+  color:#1E3A5F;
+
+  padding:15px 30px;
+
+  border-radius:10px;
+
+  font-weight:bold;
+
+  transition:.3s;
+}
+
+.hero-btn:hover{
+  transform:scale(1.05);
+}
