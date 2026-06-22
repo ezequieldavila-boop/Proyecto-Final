@@ -1,47 +1,45 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
-import BookCard from "../components/BookCard";
 
 function Catalog() {
-
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    getBooks();
+    loadBooks();
   }, []);
 
-  const getBooks = async () => {
+  const loadBooks = async () => {
     try {
-
       const response = await api.get("/books");
-
       setBooks(response.data);
-
     } catch (error) {
-
       console.log(error);
-
     }
   };
 
   return (
-    <div className="container py-5">
-
-      <h1 className="text-center mb-5">
-        Catálogo BookVerse
-      </h1>
+    <div className="container mt-5">
+      <h1 className="mb-4">Catálogo</h1>
 
       <div className="row">
-
         {books.map((book) => (
-          <BookCard
-            key={book.id}
-            book={book}
-          />
+          <div className="col-md-4 mb-4" key={book.id}>
+            <div className="card shadow h-100">
+              <div className="card-body">
+                <h5>{book.title}</h5>
+
+                <p>
+                  <strong>Autor:</strong> {book.author}
+                </p>
+
+                <p>{book.genre}</p>
+
+                <h4>${book.price}</h4>
+              </div>
+            </div>
+          </div>
         ))}
-
       </div>
-
     </div>
   );
 }
