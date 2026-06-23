@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { CartContext } from "../context/CartContext";
 import api from "../services/api";
 
 function Catalog() {
   const [books, setBooks] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     loadBooks();
@@ -34,7 +36,14 @@ function Catalog() {
 
                 <p>{book.genre}</p>
 
-                <h4>${book.price}</h4>
+                <h4 className="mb-3">${book.price}</h4>
+
+                <button
+                   className="btn btn-warning w-100"
+                   onClick={() => addToCart(book)}
+>
+                   Agregar al carrito
+                 </button>
               </div>
             </div>
           </div>
