@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import api from "../services/api";
 
@@ -44,6 +45,14 @@ function Catalog() {
 >
                    Agregar al carrito
                  </button>
+                 <div className="d-grid gap-2 mt-2">
+                 <Link
+                    to={`/book/${book.id}`}
+                   className="btn btn-outline-primary"
+  >
+                    Ver detalle
+                  </Link>
+</div>
               </div>
             </div>
           </div>
