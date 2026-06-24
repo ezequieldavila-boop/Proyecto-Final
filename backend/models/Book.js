@@ -30,6 +30,8 @@ const Book = sequelize.define("Book", {
   description: {
     type: DataTypes.TEXT,
   },
-});
 
-module.exports = Book;
+  image: {
+    type: DataTypes.STRING,
+  },
+});
