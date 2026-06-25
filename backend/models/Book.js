@@ -35,3 +35,5 @@ const Book = sequelize.define("Book", {
     type: DataTypes.STRING,
   },
 });
+
+module.exports = Book;

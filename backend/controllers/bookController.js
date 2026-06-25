@@ -1,16 +1,19 @@
 const Book = require("../models/Book");
 
-// tener todos los libros
+
+// buscar libro por id
 const getBooks = async (req, res) => {
   try {
     const books = await Book.findAll();
     res.json(books);
   } catch (error) {
-    res.status(500).json(error);
+    console.log(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
-
-// buscar libro por id
 const getBookById = async (req, res) => {
   try {
     const book = await Book.findByPk(req.params.id);
@@ -23,7 +26,11 @@ const getBookById = async (req, res) => {
 
     res.json(book);
   } catch (error) {
-    res.status(500).json(error);
+    console.log(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 

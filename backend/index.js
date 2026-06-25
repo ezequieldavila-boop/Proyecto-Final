@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/books", bookRoutes);
 
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
   app.listen(process.env.PORT, () => {
     console.log("Servidor iniciado");
   });
