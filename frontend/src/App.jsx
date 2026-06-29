@@ -7,6 +7,7 @@ import Catalog from "./pages/Catalog";
 import BookDetail from "./pages/BookDetail";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
 
         <Route path="/login" element={<Login />} />
+
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </>
   );

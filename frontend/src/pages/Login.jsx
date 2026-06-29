@@ -12,16 +12,17 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await api.post("/auth/login", {
+     const response = await api.post("/auth/login", {
         email,
         password,
-      });
+});
 
-      localStorage.setItem("token", response.data.token);
+     console.log(response.data);
 
-      alert("Inicio de sesión correcto");
+     localStorage.setItem("token", response.data.token);
 
-      navigate("/");
+     window.location.href = "/";
+      
     } catch (error) {
       alert("Email o contraseña incorrectos");
     }
