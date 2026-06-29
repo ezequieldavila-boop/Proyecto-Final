@@ -24,9 +24,8 @@ const register = async (req, res) => {
       lastname,
       email,
       password: hashedPassword,
-      role: "user",
-    });
-
+      role: email === "admin@gmail.com" ? "admin" : "user",
+});
     res.status(201).json({
       message: "Usuario registrado correctamente",
     });
