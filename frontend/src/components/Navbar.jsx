@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 function Navbar() {
@@ -7,36 +7,31 @@ function Navbar() {
 
   const navigate = useNavigate();
 
-  const [logged, setLogged] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      setLogged(true);
-    }
-  }, []);
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+  const name = localStorage.getItem("name");
 
   const logout = () => {
-    localStorage.removeItem("token");
-
-    setLogged(false);
-
+    localStorage.clear();
     navigate("/");
-
     window.location.reload();
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-
+    <nav
+      className="navbar navbar-expand-lg navbar-dark position-absolute top-0 start-0 w-100"
+      style={{
+        zIndex: 1000,
+        background: "rgba(0,0,0,.45)",
+        backdropFilter: "blur(8px)",
+      }}
+    >
       <div className="container">
-
         <Link className="navbar-brand fw-bold" to="/">
           📚 BookVerse
         </Link>
 
-        <div className="navbar-nav ms-auto">
+        <div className="navbar-nav ms-auto align-items-center">
 
           <Link className="nav-link" to="/">
             Inicio
@@ -50,15 +45,30 @@ function Navbar() {
             🛒 Carrito ({cart.length})
           </Link>
 
-          {!logged ? (
-            <Link className="nav-link" to="/login">
-              Login
-            </Link>
+          {!token ? (
+            <>
+              <Link className="nav-link" to="/login">
+                Iniciar sesión
+              </Link>
+
+              <Link className="nav-link" to="/register">
+                Registrarse
+              </Link>
+            </>
           ) : (
             <>
-              <Link className="nav-link" to="/admin">
-                Administrador
-              </Link>
+              <span
+                className="navbar-text text-white mx-3"
+                style={{ fontWeight: "bold" }}
+              >
+                👋 Hola, {name}
+              </span>
+
+              {role === "admin" && (
+                <Link className="nav-link" to="/admin">
+                  Panel Admin
+                </Link>
+              )}
 
               <button
                 className="btn btn-danger ms-3"
@@ -70,9 +80,7 @@ function Navbar() {
           )}
 
         </div>
-
       </div>
-
     </nav>
   );
 }

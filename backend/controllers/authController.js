@@ -2,9 +2,10 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+// REGISTRO
 const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { name, lastname, email, password } = req.body;
 
     const existingUser = await User.findOne({
       where: { email },
@@ -18,21 +19,28 @@ const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    await User.create({
+      name,
+      lastname,
       email,
       password: hashedPassword,
+      role: "user",
     });
 
     res.status(201).json({
-      message: "Usuario registrado",
+      message: "Usuario registrado correctamente",
     });
+
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 };
 
+// LOGIN
 const login = async (req, res) => {
   try {
+
     const { email, password } = req.body;
 
     const user = await User.findOne({
@@ -60,6 +68,7 @@ const login = async (req, res) => {
       {
         id: user.id,
         email: user.email,
+        role: user.role,
       },
       process.env.JWT_SECRET,
       {
@@ -67,8 +76,19 @@ const login = async (req, res) => {
       }
     );
 
-    res.json({ token });
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        lastname: user.lastname,
+        email: user.email,
+        role: user.role,
+      },
+    });
+
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 };

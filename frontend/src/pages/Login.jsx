@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
 
 function Login() {
@@ -12,69 +12,107 @@ function Login() {
     e.preventDefault();
 
     try {
-     const response = await api.post("/auth/login", {
+      const response = await api.post("/auth/login", {
         email,
         password,
-});
+      });
 
-     console.log(response.data);
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("name", response.data.user.name);
+      localStorage.setItem("lastname", response.data.user.lastname);
+      localStorage.setItem("email", response.data.user.email);
+      localStorage.setItem("role", response.data.user.role);
 
-     localStorage.setItem("token", response.data.token);
+      if (response.data.user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
 
-     window.location.href = "/";
-      
+      window.location.reload();
+
     } catch (error) {
-      alert("Email o contraseña incorrectos");
+      console.log(error);
+      alert("Correo o contraseña incorrectos");
     }
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "450px" }}>
-      <div className="card shadow">
+    <div className="container mt-5">
 
-        <div className="card-body">
+      <div className="row justify-content-center">
 
-          <h2 className="text-center mb-4">
-            Iniciar Sesión
-          </h2>
+        <div className="col-md-5">
 
-          <form onSubmit={login}>
+          <div className="card shadow-lg">
 
-            <div className="mb-3">
+            <div className="card-body p-4">
 
-              <label>Email</label>
+              <h2 className="text-center mb-4">
+                Iniciar sesión
+              </h2>
 
-              <input
-                type="email"
-                className="form-control"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <form onSubmit={login}>
+
+                <div className="mb-3">
+                  <label className="form-label">
+                    Correo electrónico
+                  </label>
+
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Ingrese su correo"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="mb-4">
+                  <label className="form-label">
+                    Contraseña
+                  </label>
+
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Ingrese su contraseña"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <button className="btn btn-warning w-100">
+                  Iniciar sesión
+                </button>
+
+              </form>
+
+              <hr />
+
+              <p className="text-center">
+                ¿No tienes una cuenta?
+              </p>
+
+              <div className="d-grid">
+                <Link
+                  to="/register"
+                  className="btn btn-outline-dark"
+                >
+                  Crear cuenta
+                </Link>
+              </div>
 
             </div>
 
-            <div className="mb-3">
-
-              <label>Contraseña</label>
-
-              <input
-                type="password"
-                className="form-control"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-
-            </div>
-
-            <button className="btn btn-primary w-100">
-              Iniciar Sesión
-            </button>
-
-          </form>
+          </div>
 
         </div>
 
       </div>
+
     </div>
   );
 }

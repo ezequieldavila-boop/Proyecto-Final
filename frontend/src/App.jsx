@@ -8,6 +8,7 @@ import BookDetail from "./pages/BookDetail";
 import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -25,7 +26,9 @@ function App() {
 
         <Route path="/login" element={<Login />} />
 
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/admin" element={<Admin />} />  
       </Routes>
     </>
   );
