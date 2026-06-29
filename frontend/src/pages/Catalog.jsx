@@ -22,13 +22,31 @@ function Catalog() {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4">Catálogo</h1>
+
+      <h1 className="mb-4 text-center">
+        Catálogo de Libros
+      </h1>
 
       <div className="row">
+
         {books.map((book) => (
+
           <div className="col-md-4 mb-4" key={book.id}>
+
             <div className="card shadow h-100">
-              <div className="card-body">
+
+              <img
+                src={book.image || "https://via.placeholder.com/300x450?text=Libro"}
+                className="card-img-top"
+                alt={book.title}
+                style={{
+                  height: "350px",
+                  objectFit: "cover",
+                }}
+              />
+
+              <div className="card-body d-flex flex-column">
+
                 <h5>{book.title}</h5>
 
                 <p>
@@ -37,27 +55,34 @@ function Catalog() {
 
                 <p>{book.genre}</p>
 
-                <h4 className="mb-3">${book.price}</h4>
+                <h4 className="mb-3">
+                  ${book.price}
+                </h4>
 
                 <button
-                   className="btn btn-warning w-100"
-                   onClick={() => addToCart(book)}
->
-                   Agregar al carrito
-                 </button>
-                 <div className="d-grid gap-2 mt-2">
-                 <Link
-                    to={`/book/${book.id}`}
-                   className="btn btn-outline-primary"
-  >
-                    Ver detalle
-                  </Link>
-</div>
+                  className="btn btn-warning mb-2"
+                  onClick={() => addToCart(book)}
+                >
+                  Agregar al carrito
+                </button>
+
+                <Link
+                  to={`/book/${book.id}`}
+                  className="btn btn-primary"
+                >
+                  Ver detalle
+                </Link>
+
               </div>
+
             </div>
+
           </div>
+
         ))}
+
       </div>
+
     </div>
   );
 }

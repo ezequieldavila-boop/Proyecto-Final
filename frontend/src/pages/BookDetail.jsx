@@ -6,9 +6,9 @@ import api from "../services/api";
 function BookDetail() {
   const { id } = useParams();
 
-  const [book, setBook] = useState(null);
-
   const { addToCart } = useContext(CartContext);
+
+  const [book, setBook] = useState(null);
 
   useEffect(() => {
     loadBook();
@@ -24,37 +24,69 @@ function BookDetail() {
   };
 
   if (!book) {
-    return <h2 className="text-center mt-5">Cargando...</h2>;
+    return (
+      <div className="container mt-5">
+        <h3>Cargando libro...</h3>
+      </div>
+    );
   }
 
   return (
     <div className="container mt-5">
-      <div className="card shadow p-4">
-        <h1>{book.title}</h1>
 
-        <hr />
+      <div className="row">
 
-        <h5>Autor: {book.author}</h5>
+        <div className="col-md-5">
 
-        <h5>Género: {book.genre}</h5>
+          <img
+            src={book.image || "https://via.placeholder.com/400x600"}
+            alt={book.title}
+            className="img-fluid rounded shadow"
+          />
 
-        <h5>Stock: {book.stock}</h5>
+        </div>
 
-        <h3 className="text-success mt-3">
-          ${book.price}
-        </h3>
+        <div className="col-md-7">
 
-        <p className="mt-3">
-          {book.description}
-        </p>
+          <h1>{book.title}</h1>
 
-        <button
-          className="btn btn-warning"
-          onClick={() => addToCart(book)}
-        >
-          Agregar al carrito
-        </button>
+          <hr />
+
+          <h4>Autor</h4>
+
+          <p>{book.author}</p>
+
+          <h4>Género</h4>
+
+          <p>{book.genre}</p>
+
+          <h4>Precio</h4>
+
+          <h2 className="text-success">
+            ${book.price}
+          </h2>
+
+          <h5>
+            Stock disponible: {book.stock}
+          </h5>
+
+          <hr />
+
+          <h4>Descripción</h4>
+
+          <p>{book.description}</p>
+
+          <button
+            className="btn btn-warning btn-lg"
+            onClick={() => addToCart(book)}
+          >
+            Agregar al carrito
+          </button>
+
+        </div>
+
       </div>
+
     </div>
   );
 }
