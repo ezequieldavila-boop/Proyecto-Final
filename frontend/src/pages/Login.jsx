@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,36 +19,61 @@ function Login() {
 
       localStorage.setItem("token", response.data.token);
 
-      alert("Login correcto");
+      alert("Inicio de sesión correcto");
+
+      navigate("/");
     } catch (error) {
-      console.log(error);
-      alert("Error al iniciar sesión");
+      alert("Email o contraseña incorrectos");
     }
   };
 
   return (
-    <div className="container py-5">
-      <h2>Iniciar Sesión</h2>
+    <div className="container mt-5" style={{ maxWidth: "450px" }}>
+      <div className="card shadow">
 
-      <form onSubmit={login}>
-        <input
-          className="form-control mb-3"
-          type="email"
-          placeholder="Correo"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div className="card-body">
 
-        <input
-          className="form-control mb-3"
-          type="password"
-          placeholder="Contraseña"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <h2 className="text-center mb-4">
+            Iniciar Sesión
+          </h2>
 
-        <button className="btn btn-primary">
-          Ingresar
-        </button>
-      </form>
+          <form onSubmit={login}>
+
+            <div className="mb-3">
+
+              <label>Email</label>
+
+              <input
+                type="email"
+                className="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+
+            </div>
+
+            <div className="mb-3">
+
+              <label>Contraseña</label>
+
+              <input
+                type="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
+            </div>
+
+            <button className="btn btn-primary w-100">
+              Iniciar Sesión
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
     </div>
   );
 }

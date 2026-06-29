@@ -8,11 +8,13 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
+
         <Link className="navbar-brand fw-bold" to="/">
           📚 BookVerse
         </Link>
 
         <div className="navbar-nav ms-auto">
+
           <Link className="nav-link" to="/">
             Inicio
           </Link>
@@ -24,7 +26,13 @@ function Navbar() {
           <Link className="nav-link" to="/cart">
             🛒 Carrito ({cart.length})
           </Link>
+
+          <Link className="nav-link" to="/login">
+            Login
+          </Link>
+
         </div>
+
       </div>
     </nav>
   );
