@@ -12,16 +12,72 @@ export function CartProvider({ children }) {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
+  // Agregar al carrito
   const addToCart = (book) => {
-    setCart((prevCart) => [...prevCart, book]);
+    setCart((prevCart) => {
+      const existingBook = prevCart.find(
+        (item) => item.id === book.id
+      );
+
+      if (existingBook) {
+        return prevCart.map((item) =>
+          item.id === book.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item
+        );
+      }
+
+      return [
+        ...prevCart,
+        {
+          ...book,
+          quantity: 1,
+        },
+      ];
+    });
   };
 
- const removeFromCart = (index) => {
-  setCart((prevCart) =>
-    prevCart.filter((_, i) => i !== index)
-  );
-};
+  // Aumentar cantidad
+  const increaseQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+            }
+          : item
+      )
+    );
+  };
 
+  // Disminuir cantidad
+  const decreaseQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+              }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  // Eliminar completamente
+  const removeFromCart = (id) => {
+    setCart((prevCart) =>
+      prevCart.filter((item) => item.id !== id)
+    );
+  };
+
+  // Vaciar carrito
   const clearCart = () => {
     setCart([]);
   };
@@ -31,6 +87,8 @@ export function CartProvider({ children }) {
       value={{
         cart,
         addToCart,
+        increaseQuantity,
+        decreaseQuantity,
         removeFromCart,
         clearCart,
       }}

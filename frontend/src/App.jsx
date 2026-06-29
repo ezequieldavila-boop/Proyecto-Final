@@ -9,6 +9,7 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import Register from "./pages/Register";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/admin" element={<Admin />} />  
+        <Route path="/checkout" element={<Checkout />} />
+        
       </Routes>
     </>
   );
