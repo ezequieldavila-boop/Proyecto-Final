@@ -1,12 +1,18 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 function Checkout() {
-
   const { cart, clearCart } = useContext(CartContext);
 
   const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+
+  // 🔒 si no está logueado no entra
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
 
   const total = cart.reduce(
     (acc, book) => acc + Number(book.price),
@@ -14,56 +20,47 @@ function Checkout() {
   );
 
   const finalizarCompra = () => {
-
-    alert("✅ ¡Compra realizada con éxito!");
+    alert("✅ Compra realizada con éxito");
 
     clearCart();
 
     navigate("/");
-
   };
 
   return (
-
-    <div className="container py-5 mt-5">
+    <div
+      className="container"
+      style={{
+        paddingTop: "120px",
+        paddingBottom: "80px",
+      }}
+    >
+      <h1 className="mb-4">🧾 Checkout</h1>
 
       <div className="row">
 
-        {/* DATOS */}
+        {/* FORMULARIO */}
+        <div className="col-lg-7 mb-4">
 
-        <div className="col-lg-7">
+          <div className="card shadow p-4">
 
-          <div className="card shadow-lg border-0 p-4">
-
-            <h2 className="mb-4">
-              Datos del comprador
-            </h2>
+            <h4 className="mb-3">Datos del comprador</h4>
 
             <div className="row">
 
               <div className="col-md-6 mb-3">
 
-                <label className="form-label">
-                  Nombre
-                </label>
+                <label>Nombre</label>
 
-                <input
-                  className="form-control"
-                  placeholder="Ingrese su nombre"
-                />
+                <input className="form-control" />
 
               </div>
 
               <div className="col-md-6 mb-3">
 
-                <label className="form-label">
-                  Apellido
-                </label>
+                <label>Apellido</label>
 
-                <input
-                  className="form-control"
-                  placeholder="Ingrese su apellido"
-                />
+                <input className="form-control" />
 
               </div>
 
@@ -71,60 +68,39 @@ function Checkout() {
 
             <div className="mb-3">
 
-              <label className="form-label">
-                Correo electrónico
-              </label>
+              <label>Email</label>
 
-              <input
-                type="email"
-                className="form-control"
-              />
+              <input className="form-control" />
 
             </div>
 
             <div className="mb-3">
 
-              <label className="form-label">
-                Dirección
-              </label>
+              <label>Dirección</label>
 
-              <input
-                className="form-control"
-              />
+              <input className="form-control" />
 
             </div>
 
             <div className="mb-3">
 
-              <label className="form-label">
-                Ciudad
-              </label>
+              <label>Ciudad</label>
 
-              <input
-                className="form-control"
-              />
+              <input className="form-control" />
 
             </div>
 
-            <div className="mb-4">
+            <div className="mb-3">
 
-              <label className="form-label">
-                Método de pago
-              </label>
+              <label>Pago</label>
 
               <select className="form-select">
 
-                <option>
-                  Tarjeta de crédito
-                </option>
+                <option>Tarjeta</option>
 
-                <option>
-                  Tarjeta de débito
-                </option>
+                <option>Débito</option>
 
-                <option>
-                  Mercado Pago
-                </option>
+                <option>Mercado Pago</option>
 
               </select>
 
@@ -135,29 +111,22 @@ function Checkout() {
         </div>
 
         {/* RESUMEN */}
-
         <div className="col-lg-5">
 
-          <div className="card shadow-lg border-0 p-4">
+          <div className="card shadow p-4">
 
-            <h3 className="mb-4">
-              Resumen
-            </h3>
+            <h4 className="mb-3">Resumen</h4>
 
-            {cart.map((book) => (
+            {cart.map((book, i) => (
 
               <div
-                key={book.id}
-                className="d-flex justify-content-between mb-3"
+                key={i}
+                className="d-flex justify-content-between mb-2"
               >
 
-                <span>
-                  {book.title}
-                </span>
+                <span>{book.title}</span>
 
-                <strong>
-                  ${book.price}
-                </strong>
+                <strong>${book.price}</strong>
 
               </div>
 
@@ -165,23 +134,13 @@ function Checkout() {
 
             <hr />
 
-            <div className="d-flex justify-content-between">
-
-              <h4>Total</h4>
-
-              <h4 className="text-success">
-                ${total}
-              </h4>
-
-            </div>
+            <h3>Total: ${total}</h3>
 
             <button
-              className="btn btn-warning btn-lg w-100 mt-4"
+              className="btn btn-warning w-100 mt-3"
               onClick={finalizarCompra}
             >
-
               Confirmar compra
-
             </button>
 
           </div>
@@ -189,11 +148,8 @@ function Checkout() {
         </div>
 
       </div>
-
     </div>
-
   );
-
 }
 
 export default Checkout;
