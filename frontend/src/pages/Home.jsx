@@ -6,169 +6,140 @@ function Home() {
       {/* HERO */}
 
       <section
+        className="hero"
         style={{
-          backgroundImage: "url('/banner.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          minHeight: "100vh",
-          position: "relative",
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,.60), rgba(0,0,0,.60)), url('/banner.jpg')",
         }}
       >
-        <div
-          style={{
-            background: "rgba(0,0,0,.55)",
-            minHeight: "100vh",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div className="container text-white">
+        <div className="container">
 
-            <h1
-              className="display-2 fw-bold"
-              style={{ maxWidth: "700px" }}
-            >
-              Descubrí tu próxima gran historia
+          <div className="hero-content">
+
+            <span className="badge bg-warning text-dark px-3 py-2 mb-3">
+              📚 Bienvenido a BookVerse
+            </span>
+
+            <h1>
+              Descubrí un
+              <br />
+              universo de libros
             </h1>
 
-            <p
-              className="lead mt-4"
-              style={{ maxWidth: "600px" }}
-            >
-              Miles de aventuras, romances, misterios y
-              mundos fantásticos te esperan en BookVerse.
+            <p>
+              Encontrá novelas, clásicos, fantasía,
+              ciencia ficción, romance, terror
+              y mucho más.
             </p>
 
-            <Link
-              to="/catalog"
-              className="btn btn-warning btn-lg mt-4 px-5"
-            >
-              📚 Explorar catálogo
-            </Link>
+            <div className="mt-4">
+
+              <Link
+                to="/catalog"
+                className="btn btn-warning btn-lg me-3"
+              >
+                Explorar catálogo
+              </Link>
+
+              <Link
+                to="/register"
+                className="btn btn-outline-light btn-lg"
+              >
+                Crear cuenta
+              </Link>
+
+            </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* CARACTERISTICAS */}
+      {/* BENEFICIOS */}
 
-      <div className="container py-5">
-
-        <div className="row text-center">
-
-          <div className="col-md-4">
-
-            <div className="card border-0 shadow h-100">
-
-              <div className="card-body p-4">
-
-                <h1>📖</h1>
-
-                <h4 className="fw-bold">
-                  Más de 20 títulos
-                </h4>
-
-                <p className="text-muted">
-                  Fantasía, romance, terror,
-                  ciencia ficción y mucho más.
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div className="col-md-4">
-
-            <div className="card border-0 shadow h-100">
-
-              <div className="card-body p-4">
-
-                <h1>🚚</h1>
-
-                <h4 className="fw-bold">
-                  Compra sencilla
-                </h4>
-
-                <p className="text-muted">
-                  Agregá libros al carrito
-                  y realizá tu compra fácilmente.
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div className="col-md-4">
-
-            <div className="card border-0 shadow h-100">
-
-              <div className="card-body p-4">
-
-                <h1>⭐</h1>
-
-                <h4 className="fw-bold">
-                  Calidad garantizada
-                </h4>
-
-                <p className="text-muted">
-                  Libros seleccionados para
-                  todos los gustos.
-                </p>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* QUIENES SOMOS */}
-
-      <section
-        className="py-5"
-        style={{
-          background: "#f8f9fa",
-        }}
-      >
+      <section className="py-5">
 
         <div className="container">
 
-          <div className="row align-items-center">
+          <h2 className="text-center fw-bold mb-5">
+            ¿Por qué elegir BookVerse?
+          </h2>
 
-            <div className="col-lg-6">
+          <div className="row g-4">
 
-              <img
-                src="/banner.jpg"
-                className="img-fluid rounded shadow"
-              />
+            <div className="col-lg-3 col-md-6">
+
+              <div className="feature-card">
+
+                <div className="feature-icon">
+                  📚
+                </div>
+
+                <h4>Gran catálogo</h4>
+
+                <p>
+                  Más de 20 títulos cuidadosamente
+                  seleccionados.
+                </p>
+
+              </div>
 
             </div>
 
-            <div className="col-lg-6">
+            <div className="col-lg-3 col-md-6">
 
-              <h2 className="fw-bold mb-4">
-                ¿Quiénes somos?
-              </h2>
+              <div className="feature-card">
 
-              <p className="lead text-secondary">
+                <div className="feature-icon">
+                  🚚
+                </div>
 
-                En BookVerse creemos que cada libro
-                tiene el poder de transportar al lector
-                a un universo diferente.
+                <h4>Entrega rápida</h4>
 
-                Nuestra misión es acercar las mejores
-                historias a cada persona mediante una
-                experiencia de compra rápida,
-                sencilla y moderna.
+                <p>
+                  Comprá desde tu casa de forma
+                  sencilla y cómoda.
+                </p>
 
-              </p>
+              </div>
+
+            </div>
+
+            <div className="col-lg-3 col-md-6">
+
+              <div className="feature-card">
+
+                <div className="feature-icon">
+                  🔒
+                </div>
+
+                <h4>Compra segura</h4>
+
+                <p>
+                  Tu información siempre
+                  protegida.
+                </p>
+
+              </div>
+
+            </div>
+
+            <div className="col-lg-3 col-md-6">
+
+              <div className="feature-card">
+
+                <div className="feature-icon">
+                  ⭐
+                </div>
+
+                <h4>Calidad garantizada</h4>
+
+                <p>
+                  Trabajamos con las mejores
+                  editoriales.
+                </p>
+
+              </div>
 
             </div>
 
@@ -178,49 +149,45 @@ function Home() {
 
       </section>
 
-      {/* ESTADISTICAS */}
+      {/* ESTADÍSTICAS */}
 
-      <section className="container py-5">
+      <section className="stats-section">
 
-        <div className="row text-center">
+        <div className="container">
 
-          <div className="col-md-3">
+          <div className="row text-center">
 
-            <h1 className="fw-bold text-warning">
-              +20
-            </h1>
+            <div className="col-md-3">
 
-            <p>Libros disponibles</p>
+              <h2>20+</h2>
 
-          </div>
+              <p>Libros</p>
 
-          <div className="col-md-3">
+            </div>
 
-            <h1 className="fw-bold text-warning">
-              8
-            </h1>
+            <div className="col-md-3">
 
-            <p>Géneros</p>
+              <h2>8</h2>
 
-          </div>
+              <p>Géneros</p>
 
-          <div className="col-md-3">
+            </div>
 
-            <h1 className="fw-bold text-warning">
-              100%
-            </h1>
+            <div className="col-md-3">
 
-            <p>Compra segura</p>
+              <h2>100%</h2>
 
-          </div>
+              <p>Compra segura</p>
 
-          <div className="col-md-3">
+            </div>
 
-            <h1 className="fw-bold text-warning">
-              ★★★★★
-            </h1>
+            <div className="col-md-3">
 
-            <p>Calificación</p>
+              <h2>★★★★★</h2>
+
+              <p>Valoración</p>
+
+            </div>
 
           </div>
 
@@ -230,28 +197,23 @@ function Home() {
 
       {/* CTA */}
 
-      <section
-        className="text-center py-5"
-        style={{
-          background: "#212529",
-        }}
-      >
+      <section className="cta-section">
 
-        <div className="container text-white">
+        <div className="container text-center">
 
           <h2 className="fw-bold">
-            ¿Listo para comenzar una nueva aventura?
+            Miles de historias te están esperando.
           </h2>
 
           <p className="lead">
-            Descubrí los mejores títulos disponibles.
+            Elegí tu próximo libro favorito.
           </p>
 
           <Link
             to="/catalog"
-            className="btn btn-warning btn-lg mt-3"
+            className="btn btn-warning btn-lg"
           >
-            Ver Catálogo
+            Ver catálogo
           </Link>
 
         </div>

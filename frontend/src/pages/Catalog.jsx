@@ -6,7 +6,6 @@ import api from "../services/api";
 function Catalog() {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
-  const [genre, setGenre] = useState("");
 
   const { addToCart } = useContext(CartContext);
 
@@ -23,51 +22,36 @@ function Catalog() {
     }
   };
 
-  const filteredBooks = books.filter((book) => {
-    const matchesSearch =
-      book.title.toLowerCase().includes(search.toLowerCase()) ||
-      book.author.toLowerCase().includes(search.toLowerCase());
-
-    const matchesGenre =
-      genre === "" || book.genre === genre;
-
-    return matchesSearch && matchesGenre;
-  });
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div className="container py-5">
+    <div className="container py-5 mt-5">
 
-      <h1 className="text-center fw-bold mb-4">
-        📚 Catálogo BookVerse
-      </h1>
+      <div className="text-center mb-5">
 
-      <div className="row mb-4">
+        <h1 className="fw-bold display-5">
+          📚 Catálogo
+        </h1>
 
-        <div className="col-md-8">
+        <p className="text-secondary">
+          Descubrí tu próxima lectura favorita.
+        </p>
+
+      </div>
+
+      <div className="row justify-content-center mb-5">
+
+        <div className="col-md-6">
+
           <input
-            className="form-control form-control-lg"
-            placeholder="🔎 Buscar por título o autor..."
+            className="form-control form-control-lg shadow-sm"
+            placeholder="🔍 Buscar libros..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-        </div>
 
-        <div className="col-md-4">
-          <select
-            className="form-select form-select-lg"
-            value={genre}
-            onChange={(e) => setGenre(e.target.value)}
-          >
-            <option value="">Todos los géneros</option>
-            <option>Fantasía</option>
-            <option>Ciencia Ficción</option>
-            <option>Terror</option>
-            <option>Romance</option>
-            <option>Distopía</option>
-            <option>Suspenso</option>
-            <option>Aventura</option>
-            <option>Ficción</option>
-          </select>
         </div>
 
       </div>
@@ -78,39 +62,21 @@ function Catalog() {
 
           <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={book.id}>
 
-            <div
-              className="card h-100 border-0 shadow-sm"
-              style={{
-                transition: ".3s",
-                borderRadius: "18px",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-8px)";
-                e.currentTarget.style.boxShadow =
-                  "0 15px 35px rgba(0,0,0,.2)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow =
-                  "0 .125rem .25rem rgba(0,0,0,.075)";
-              }}
-            >
+            <div className="card h-100 catalog-card">
 
               <img
                 src={book.image}
-                alt={book.title}
                 className="card-img-top"
+                alt={book.title}
                 style={{
-                  height: "330px",
-                  objectFit: "cover",
-                  borderTopLeftRadius: "18px",
-                  borderTopRightRadius: "18px",
+                  height: "360px",
+                  objectFit: "cover"
                 }}
               />
 
               <div className="card-body d-flex flex-column">
 
-                <span className="badge bg-primary mb-2">
+                <span className="badge bg-warning text-dark mb-2 align-self-start">
                   {book.genre}
                 </span>
 
@@ -118,22 +84,26 @@ function Catalog() {
                   {book.title}
                 </h5>
 
-                <p className="text-muted mb-1">
+                <small className="text-muted">
                   {book.author}
-                </p>
+                </small>
 
-                <h3
-                  className="text-success fw-bold mt-2"
-                >
+                <div className="my-2">
+
+                  ⭐⭐⭐⭐⭐
+
+                </div>
+
+                <h3 className="text-success fw-bold mt-2">
                   ${book.price}
                 </h3>
 
-                <small className="text-success mb-3">
+                <small className="text-secondary mb-3">
                   Stock disponible: {book.stock}
                 </small>
 
                 <button
-                  className="btn btn-warning fw-bold mb-2"
+                  className="btn btn-warning w-100 mb-2"
                   onClick={() => addToCart(book)}
                 >
                   🛒 Agregar al carrito
@@ -141,7 +111,7 @@ function Catalog() {
 
                 <Link
                   to={`/book/${book.id}`}
-                  className="btn btn-dark"
+                  className="btn btn-outline-dark w-100"
                 >
                   Ver detalle
                 </Link>
