@@ -17,13 +17,17 @@ function Login() {
         password,
       });
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("name", response.data.user.name);
-      localStorage.setItem("lastname", response.data.user.lastname);
-      localStorage.setItem("email", response.data.user.email);
-      localStorage.setItem("role", response.data.user.role);
+      const user = response.data.user;
 
-      if (response.data.user.role === "admin") {
+      // 🔥 GUARDO TODO BIEN
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // opcional (para tu navbar actual)
+      localStorage.setItem("name", user.name);
+      localStorage.setItem("role", user.role);
+
+      if (user.role === "admin") {
         navigate("/admin");
       } else {
         navigate("/");
@@ -38,80 +42,32 @@ function Login() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container" style={{ paddingTop: "120px" }}>
 
-      <div className="row justify-content-center">
+      <h2>Iniciar sesión</h2>
 
-        <div className="col-md-5">
+      <form onSubmit={login}>
 
-          <div className="card shadow-lg">
+        <input
+          className="form-control mb-2"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-            <div className="card-body p-4">
+        <input
+          className="form-control mb-3"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-              <h2 className="text-center mb-4">
-                Iniciar sesión
-              </h2>
+        <button className="btn btn-warning w-100">
+          Iniciar sesión
+        </button>
 
-              <form onSubmit={login}>
-
-                <div className="mb-3">
-                  <label className="form-label">
-                    Correo electrónico
-                  </label>
-
-                  <input
-                    type="email"
-                    className="form-control"
-                    placeholder="Ingrese su correo"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="mb-4">
-                  <label className="form-label">
-                    Contraseña
-                  </label>
-
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Ingrese su contraseña"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <button className="btn btn-warning w-100">
-                  Iniciar sesión
-                </button>
-
-              </form>
-
-              <hr />
-
-              <p className="text-center">
-                ¿No tienes una cuenta?
-              </p>
-
-              <div className="d-grid">
-                <Link
-                  to="/register"
-                  className="btn btn-outline-dark"
-                >
-                  Crear cuenta
-                </Link>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
+      </form>
 
     </div>
   );
