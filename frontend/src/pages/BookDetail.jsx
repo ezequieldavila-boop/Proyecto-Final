@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import api from "../services/api";
 
@@ -25,62 +25,79 @@ function BookDetail() {
 
   if (!book) {
     return (
-      <div className="container mt-5">
-        <h3>Cargando libro...</h3>
+      <div className="container mt-5 text-center">
+        <h2>Cargando libro...</h2>
       </div>
     );
   }
 
   return (
-    <div className="container mt-5">
+    <div className="container py-5 mt-5">
 
       <div className="row">
 
-        <div className="col-md-5">
+        {/* Imagen */}
 
-          <img
-            src={book.image || "https://via.placeholder.com/400x600"}
-            alt={book.title}
-            className="img-fluid rounded shadow"
-          />
+        <div className="col-lg-5">
+
+          <div className="detail-image shadow">
+
+            <img
+              src={book.image}
+              className="img-fluid"
+              alt={book.title}
+            />
+
+          </div>
 
         </div>
 
-        <div className="col-md-7">
+        {/* Información */}
 
-          <h1>{book.title}</h1>
+        <div className="col-lg-7">
 
-          <hr />
+          <span className="badge bg-warning text-dark mb-3">
+            {book.genre}
+          </span>
 
-          <h4>Autor</h4>
+          <h1 className="fw-bold">
+            {book.title}
+          </h1>
 
-          <p>{book.author}</p>
+          <h5 className="text-secondary">
+            {book.author}
+          </h5>
 
-          <h4>Género</h4>
+          <div className="my-3">
 
-          <p>{book.genre}</p>
+            ⭐⭐⭐⭐⭐
 
-          <h4>Precio</h4>
+            <span className="ms-2 text-secondary">
+              (128 opiniones)
+            </span>
 
-          <h2 className="text-success">
+          </div>
+
+          <h2 className="text-success fw-bold mb-4">
             ${book.price}
           </h2>
 
-          <h5>
-            Stock disponible: {book.stock}
-          </h5>
+          <p className="lead">
+            {book.description}
+          </p>
 
-          <hr />
+          <div className="alert alert-success mt-4">
 
-          <h4>Descripción</h4>
+            📦 Stock disponible:
+            <strong> {book.stock}</strong>
 
-          <p>{book.description}</p>
+          </div>
 
           <button
-            className="btn btn-warning btn-lg"
+            className="btn btn-warning btn-lg mt-3 px-5"
             onClick={() => addToCart(book)}
           >
-            Agregar al carrito
+            🛒 Agregar al carrito
           </button>
 
         </div>

@@ -440,3 +440,31 @@ CATALOGO
 
     border-radius:10px;
 }
+/*=====================
+DETALLE LIBRO
+======================*/
+
+.detail-image{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    text-align:center;
+}
+
+.detail-image img{
+
+    max-height:600px;
+
+    object-fit:contain;
+}
+
+.detail-image:hover img{
+
+    transform:scale(1.04);
+
+    transition:.4s;
+}
