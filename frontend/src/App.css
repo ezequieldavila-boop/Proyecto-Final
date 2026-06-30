@@ -468,3 +468,127 @@ DETALLE LIBRO
 
     transition:.4s;
 }
+/*=========================
+FOOTER
+=========================*/
+
+.footer{
+
+    background:#111;
+
+    color:white;
+
+    padding:60px 0 20px;
+}
+
+.footer h3,
+.footer h4{
+
+    color:#ffc107;
+
+    margin-bottom:20px;
+}
+
+.footer p{
+
+    color:#ddd;
+}
+
+.footer a{
+
+    color:#ddd;
+
+    text-decoration:none;
+
+    transition:.3s;
+}
+
+.footer a:hover{
+
+    color:#ffc107;
+}
+
+.footer hr{
+
+    margin:30px 0;
+
+    border-color:#444;
+}
+/*========================
+NAVBAR
+========================*/
+
+.navbar{
+
+    padding:18px 0;
+
+    transition:.3s;
+
+}
+
+.navbar-brand{
+
+    font-size:32px;
+
+    letter-spacing:1px;
+
+}
+
+.nav-link{
+
+    font-weight:600;
+
+    margin-left:15px;
+
+}
+
+.nav-link:hover{
+
+    color:#ffc107 !important;
+
+}
+
+.dropdown-menu{
+
+    border:none;
+
+    border-radius:15px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+.dropdown-item:hover{
+
+    background:#ffc107;
+
+    color:black;
+
+}
+/*=========================
+CHECKOUT
+=========================*/
+
+.form-control,
+.form-select{
+
+    padding:12px;
+
+    border-radius:12px;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    box-shadow:none;
+
+    border-color:#ffc107;
+
+}
+
+.card{
+
+    border-radius:20px;
+
+}

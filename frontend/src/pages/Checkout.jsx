@@ -1,160 +1,132 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
+
   const { cart, clearCart } = useContext(CartContext);
 
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [payment, setPayment] = useState("Tarjeta");
-
   const total = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, book) => acc + Number(book.price),
     0
   );
 
-  const finishPurchase = (e) => {
-    e.preventDefault();
+  const finalizarCompra = () => {
 
-    alert("✅ ¡Compra realizada con éxito!\n\nGracias por elegir BookVerse.");
+    alert("✅ ¡Compra realizada con éxito!");
 
     clearCart();
 
     navigate("/");
+
   };
 
   return (
-    <div className="container mt-5">
+
+    <div className="container py-5 mt-5">
 
       <div className="row">
 
+        {/* DATOS */}
+
         <div className="col-lg-7">
 
-          <div className="card shadow">
+          <div className="card shadow-lg border-0 p-4">
 
-            <div className="card-body">
+            <h2 className="mb-4">
+              Datos del comprador
+            </h2>
 
-              <h2 className="mb-4">
-                Finalizar compra
-              </h2>
+            <div className="row">
 
-              <form onSubmit={finishPurchase}>
+              <div className="col-md-6 mb-3">
 
-                <div className="row">
+                <label className="form-label">
+                  Nombre
+                </label>
 
-                  <div className="col-md-6 mb-3">
+                <input
+                  className="form-control"
+                  placeholder="Ingrese su nombre"
+                />
 
-                    <label>Nombre</label>
+              </div>
 
-                    <input
-                      className="form-control"
-                      value={name}
-                      onChange={(e)=>setName(e.target.value)}
-                      required
-                    />
+              <div className="col-md-6 mb-3">
 
-                  </div>
+                <label className="form-label">
+                  Apellido
+                </label>
 
-                  <div className="col-md-6 mb-3">
+                <input
+                  className="form-control"
+                  placeholder="Ingrese su apellido"
+                />
 
-                    <label>Apellido</label>
+              </div>
 
-                    <input
-                      className="form-control"
-                      value={lastname}
-                      onChange={(e)=>setLastname(e.target.value)}
-                      required
-                    />
+            </div>
 
-                  </div>
+            <div className="mb-3">
 
-                </div>
+              <label className="form-label">
+                Correo electrónico
+              </label>
 
-                <div className="mb-3">
+              <input
+                type="email"
+                className="form-control"
+              />
 
-                  <label>Correo</label>
+            </div>
 
-                  <input
-                    type="email"
-                    className="form-control"
-                    value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
-                    required
-                  />
+            <div className="mb-3">
 
-                </div>
+              <label className="form-label">
+                Dirección
+              </label>
 
-                <div className="mb-3">
+              <input
+                className="form-control"
+              />
 
-                  <label>Teléfono</label>
+            </div>
 
-                  <input
-                    className="form-control"
-                    value={phone}
-                    onChange={(e)=>setPhone(e.target.value)}
-                    required
-                  />
+            <div className="mb-3">
 
-                </div>
+              <label className="form-label">
+                Ciudad
+              </label>
 
-                <div className="mb-3">
+              <input
+                className="form-control"
+              />
 
-                  <label>Dirección</label>
+            </div>
 
-                  <input
-                    className="form-control"
-                    value={address}
-                    onChange={(e)=>setAddress(e.target.value)}
-                    required
-                  />
+            <div className="mb-4">
 
-                </div>
+              <label className="form-label">
+                Método de pago
+              </label>
 
-                <div className="mb-3">
+              <select className="form-select">
 
-                  <label>Ciudad</label>
+                <option>
+                  Tarjeta de crédito
+                </option>
 
-                  <input
-                    className="form-control"
-                    value={city}
-                    onChange={(e)=>setCity(e.target.value)}
-                    required
-                  />
+                <option>
+                  Tarjeta de débito
+                </option>
 
-                </div>
+                <option>
+                  Mercado Pago
+                </option>
 
-                <div className="mb-4">
-
-                  <label>Forma de pago</label>
-
-                  <select
-                    className="form-select"
-                    value={payment}
-                    onChange={(e)=>setPayment(e.target.value)}
-                  >
-
-                    <option>Tarjeta</option>
-
-                    <option>Transferencia</option>
-
-                    <option>Efectivo</option>
-
-                  </select>
-
-                </div>
-
-                <button className="btn btn-success btn-lg w-100">
-                  Confirmar compra
-                </button>
-
-              </form>
+              </select>
 
             </div>
 
@@ -162,52 +134,55 @@ function Checkout() {
 
         </div>
 
+        {/* RESUMEN */}
+
         <div className="col-lg-5">
 
-          <div className="card shadow">
+          <div className="card shadow-lg border-0 p-4">
 
-            <div className="card-body">
+            <h3 className="mb-4">
+              Resumen
+            </h3>
 
-              <h3>Resumen</h3>
+            {cart.map((book) => (
 
-              <hr />
+              <div
+                key={book.id}
+                className="d-flex justify-content-between mb-3"
+              >
 
-              {cart.map((item)=>(
+                <span>
+                  {book.title}
+                </span>
 
-                <div
-                  key={item.id}
-                  className="d-flex justify-content-between mb-3"
-                >
+                <strong>
+                  ${book.price}
+                </strong>
 
-                  <div>
+              </div>
 
-                    <strong>{item.title}</strong>
+            ))}
 
-                    <br />
+            <hr />
 
-                    x{item.quantity}
+            <div className="d-flex justify-content-between">
 
-                  </div>
+              <h4>Total</h4>
 
-                  <div>
-
-                    ${item.price * item.quantity}
-
-                  </div>
-
-                </div>
-
-              ))}
-
-              <hr />
-
-              <h3 className="text-end">
-
-                Total: ${total}
-
-              </h3>
+              <h4 className="text-success">
+                ${total}
+              </h4>
 
             </div>
+
+            <button
+              className="btn btn-warning btn-lg w-100 mt-4"
+              onClick={finalizarCompra}
+            >
+
+              Confirmar compra
+
+            </button>
 
           </div>
 
@@ -216,7 +191,9 @@ function Checkout() {
       </div>
 
     </div>
+
   );
+
 }
 
 export default Checkout;
