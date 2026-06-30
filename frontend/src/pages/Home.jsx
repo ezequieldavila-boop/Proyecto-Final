@@ -3,49 +3,125 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <>
+      {/* HERO */}
 
-      {/* Banner */}
-
-      <div
+      <section
         style={{
           backgroundImage: "url('/banner.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "100vh",
+          minHeight: "100vh",
           position: "relative",
         }}
       >
-
         <div
           style={{
             background: "rgba(0,0,0,.55)",
-            width: "100%",
-            height: "100%",
+            minHeight: "100vh",
             display: "flex",
             alignItems: "center",
           }}
         >
-
           <div className="container text-white">
 
             <h1
               className="display-2 fw-bold"
+              style={{ maxWidth: "700px" }}
             >
-              Bienvenido a BookVerse
+              Descubrí tu próxima gran historia
             </h1>
 
             <p
-              className="lead fs-3 mt-3"
+              className="lead mt-4"
+              style={{ maxWidth: "600px" }}
             >
-              Donde cada libro abre un nuevo universo.
+              Miles de aventuras, romances, misterios y
+              mundos fantásticos te esperan en BookVerse.
             </p>
 
             <Link
               to="/catalog"
-              className="btn btn-warning btn-lg mt-4"
+              className="btn btn-warning btn-lg mt-4 px-5"
             >
-              Explorar Catálogo
+              📚 Explorar catálogo
             </Link>
+
+          </div>
+        </div>
+      </section>
+
+      {/* CARACTERISTICAS */}
+
+      <div className="container py-5">
+
+        <div className="row text-center">
+
+          <div className="col-md-4">
+
+            <div className="card border-0 shadow h-100">
+
+              <div className="card-body p-4">
+
+                <h1>📖</h1>
+
+                <h4 className="fw-bold">
+                  Más de 20 títulos
+                </h4>
+
+                <p className="text-muted">
+                  Fantasía, romance, terror,
+                  ciencia ficción y mucho más.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className="col-md-4">
+
+            <div className="card border-0 shadow h-100">
+
+              <div className="card-body p-4">
+
+                <h1>🚚</h1>
+
+                <h4 className="fw-bold">
+                  Compra sencilla
+                </h4>
+
+                <p className="text-muted">
+                  Agregá libros al carrito
+                  y realizá tu compra fácilmente.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className="col-md-4">
+
+            <div className="card border-0 shadow h-100">
+
+              <div className="card-body p-4">
+
+                <h1>⭐</h1>
+
+                <h4 className="fw-bold">
+                  Calidad garantizada
+                </h4>
+
+                <p className="text-muted">
+                  Libros seleccionados para
+                  todos los gustos.
+                </p>
+
+              </div>
+
+            </div>
 
           </div>
 
@@ -53,64 +129,98 @@ function Home() {
 
       </div>
 
-      {/* Beneficios */}
+      {/* QUIENES SOMOS */}
 
-      <section className="container my-5">
+      <section
+        className="py-5"
+        style={{
+          background: "#f8f9fa",
+        }}
+      >
 
-        <h2 className="text-center mb-5">
-          ¿Por qué elegir BookVerse?
-        </h2>
+        <div className="container">
+
+          <div className="row align-items-center">
+
+            <div className="col-lg-6">
+
+              <img
+                src="/banner.jpg"
+                className="img-fluid rounded shadow"
+              />
+
+            </div>
+
+            <div className="col-lg-6">
+
+              <h2 className="fw-bold mb-4">
+                ¿Quiénes somos?
+              </h2>
+
+              <p className="lead text-secondary">
+
+                En BookVerse creemos que cada libro
+                tiene el poder de transportar al lector
+                a un universo diferente.
+
+                Nuestra misión es acercar las mejores
+                historias a cada persona mediante una
+                experiencia de compra rápida,
+                sencilla y moderna.
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ESTADISTICAS */}
+
+      <section className="container py-5">
 
         <div className="row text-center">
 
-          <div className="col-md-4">
+          <div className="col-md-3">
 
-            <div className="card shadow border-0 p-4 h-100">
+            <h1 className="fw-bold text-warning">
+              +20
+            </h1>
 
-              <h1>📚</h1>
-
-              <h4>Más de 20 libros</h4>
-
-              <p>
-                Fantasía, romance, terror,
-                aventura y ciencia ficción.
-              </p>
-
-            </div>
+            <p>Libros disponibles</p>
 
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-3">
 
-            <div className="card shadow border-0 p-4 h-100">
+            <h1 className="fw-bold text-warning">
+              8
+            </h1>
 
-              <h1>🚚</h1>
-
-              <h4>Envíos rápidos</h4>
-
-              <p>
-                Comprá desde tu casa y recibí
-                tus libros de forma segura.
-              </p>
-
-            </div>
+            <p>Géneros</p>
 
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-3">
 
-            <div className="card shadow border-0 p-4 h-100">
+            <h1 className="fw-bold text-warning">
+              100%
+            </h1>
 
-              <h1>💳</h1>
+            <p>Compra segura</p>
 
-              <h4>Pagos seguros</h4>
+          </div>
 
-              <p>
-                Diferentes medios de pago
-                para una compra confiable.
-              </p>
+          <div className="col-md-3">
 
-            </div>
+            <h1 className="fw-bold text-warning">
+              ★★★★★
+            </h1>
+
+            <p>Calificación</p>
 
           </div>
 
@@ -118,138 +228,31 @@ function Home() {
 
       </section>
 
-      {/* Destacados */}
+      {/* CTA */}
 
-      <section className="container my-5">
+      <section
+        className="text-center py-5"
+        style={{
+          background: "#212529",
+        }}
+      >
 
-        <h2 className="text-center mb-5">
-          ⭐ Libros destacados
-        </h2>
+        <div className="container text-white">
 
-        <div className="row">
+          <h2 className="fw-bold">
+            ¿Listo para comenzar una nueva aventura?
+          </h2>
 
-          <div className="col-md-4">
+          <p className="lead">
+            Descubrí los mejores títulos disponibles.
+          </p>
 
-            <div className="card shadow">
-
-              <img
-                src="/hobbit.jpg"
-                className="card-img-top"
-                style={{
-                  height: "350px",
-                  objectFit: "cover",
-                }}
-              />
-
-              <div className="card-body text-center">
-
-                <h4>El Hobbit</h4>
-
-                <p>J.R.R. Tolkien</p>
-
-                <Link
-                  className="btn btn-warning"
-                  to="/catalog"
-                >
-                  Ver catálogo
-                </Link>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div className="col-md-4">
-
-            <div className="card shadow">
-
-              <img
-                src="/harrypotter.jpg"
-                className="card-img-top"
-                style={{
-                  height: "350px",
-                  objectFit: "cover",
-                }}
-              />
-
-              <div className="card-body text-center">
-
-                <h4>Harry Potter</h4>
-
-                <p>J.K. Rowling</p>
-
-                <Link
-                  className="btn btn-warning"
-                  to="/catalog"
-                >
-                  Ver catálogo
-                </Link>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div className="col-md-4">
-
-            <div className="card shadow">
-
-              <img
-                src="/dune.jpg"
-                className="card-img-top"
-                style={{
-                  height: "350px",
-                  objectFit: "cover",
-                }}
-              />
-
-              <div className="card-body text-center">
-
-                <h4>Dune</h4>
-
-                <p>Frank Herbert</p>
-
-                <Link
-                  className="btn btn-warning"
-                  to="/catalog"
-                >
-                  Ver catálogo
-                </Link>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* Nosotros */}
-
-      <section className="container my-5">
-
-        <div className="card shadow-lg border-0">
-
-          <div className="card-body p-5 text-center">
-
-            <h2>Sobre BookVerse</h2>
-
-            <p className="mt-4 fs-5">
-
-              BookVerse es una librería online creada
-              para acercar las mejores historias a cada
-              lector. Nuestro objetivo es ofrecer una
-              experiencia de compra simple, rápida y
-              segura para que descubrir nuevos libros
-              sea tan emocionante como leerlos.
-
-            </p>
-
-          </div>
+          <Link
+            to="/catalog"
+            className="btn btn-warning btn-lg mt-3"
+          >
+            Ver Catálogo
+          </Link>
 
         </div>
 

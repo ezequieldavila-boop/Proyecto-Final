@@ -6,8 +6,7 @@ import api from "../services/api";
 function Catalog() {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState("");
-  const [genre, setGenre] = useState("Todos");
-  const [order, setOrder] = useState("");
+  const [genre, setGenre] = useState("");
 
   const { addToCart } = useContext(CartContext);
 
@@ -24,89 +23,51 @@ function Catalog() {
     }
   };
 
-  let filteredBooks = books.filter((book) => {
-    const matchSearch =
+  const filteredBooks = books.filter((book) => {
+    const matchesSearch =
       book.title.toLowerCase().includes(search.toLowerCase()) ||
       book.author.toLowerCase().includes(search.toLowerCase());
 
-    const matchGenre =
-      genre === "Todos" || book.genre === genre;
+    const matchesGenre =
+      genre === "" || book.genre === genre;
 
-    return matchSearch && matchGenre;
+    return matchesSearch && matchesGenre;
   });
 
-  if (order === "az") {
-    filteredBooks.sort((a, b) =>
-      a.title.localeCompare(b.title)
-    );
-  }
-
-  if (order === "priceAsc") {
-    filteredBooks.sort((a, b) => a.price - b.price);
-  }
-
-  if (order === "priceDesc") {
-    filteredBooks.sort((a, b) => b.price - a.price);
-  }
-
   return (
-    <div className="container mt-5">
+    <div className="container py-5">
 
-      <h1 className="text-center mb-5">
-        📚 Catálogo de Libros
+      <h1 className="text-center fw-bold mb-4">
+        📚 Catálogo BookVerse
       </h1>
 
       <div className="row mb-4">
 
-        <div className="col-md-5">
-
+        <div className="col-md-8">
           <input
-            type="text"
-            className="form-control"
-            placeholder="🔍 Buscar libro o autor..."
+            className="form-control form-control-lg"
+            placeholder="🔎 Buscar por título o autor..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-
         </div>
 
-        <div className="col-md-3">
-
+        <div className="col-md-4">
           <select
-            className="form-select"
+            className="form-select form-select-lg"
             value={genre}
             onChange={(e) => setGenre(e.target.value)}
           >
-            <option>Todos</option>
+            <option value="">Todos los géneros</option>
             <option>Fantasía</option>
             <option>Ciencia Ficción</option>
-            <option>Aventura</option>
             <option>Terror</option>
             <option>Romance</option>
             <option>Distopía</option>
             <option>Suspenso</option>
+            <option>Aventura</option>
             <option>Ficción</option>
           </select>
-
-        </div>
-
-        <div className="col-md-4">
-
-          <select
-            className="form-select"
-            value={order}
-            onChange={(e) => setOrder(e.target.value)}
-          >
-            <option value="">Ordenar por...</option>
-            <option value="az">Nombre A-Z</option>
-            <option value="priceAsc">
-              Precio menor
-            </option>
-            <option value="priceDesc">
-              Precio mayor
-            </option>
-          </select>
-
         </div>
 
       </div>
@@ -115,75 +76,75 @@ function Catalog() {
 
         {filteredBooks.map((book) => (
 
-          <div
-            className="col-md-4 mb-4"
-            key={book.id}
-          >
+          <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={book.id}>
 
             <div
-              className="card h-100 shadow"
+              className="card h-100 border-0 shadow-sm"
               style={{
                 transition: ".3s",
-                borderRadius: "15px",
+                borderRadius: "18px",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform =
-                  "scale(1.03)";
+                e.currentTarget.style.transform = "translateY(-8px)";
+                e.currentTarget.style.boxShadow =
+                  "0 15px 35px rgba(0,0,0,.2)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform =
-                  "scale(1)";
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow =
+                  "0 .125rem .25rem rgba(0,0,0,.075)";
               }}
             >
 
               <img
-                src={
-                  book.image ||
-                  "https://via.placeholder.com/300x450"
-                }
-                className="card-img-top"
+                src={book.image}
                 alt={book.title}
+                className="card-img-top"
                 style={{
-                  height: "350px",
+                  height: "330px",
                   objectFit: "cover",
+                  borderTopLeftRadius: "18px",
+                  borderTopRightRadius: "18px",
                 }}
               />
 
               <div className="card-body d-flex flex-column">
 
+                <span className="badge bg-primary mb-2">
+                  {book.genre}
+                </span>
+
                 <h5 className="fw-bold">
                   {book.title}
                 </h5>
 
-                <p className="text-muted">
+                <p className="text-muted mb-1">
                   {book.author}
                 </p>
 
-                <span className="badge bg-secondary mb-2">
-                  {book.genre}
-                </span>
-
-                <h3 className="text-success">
+                <h3
+                  className="text-success fw-bold mt-2"
+                >
                   ${book.price}
                 </h3>
 
-                <div className="mt-auto">
+                <small className="text-success mb-3">
+                  Stock disponible: {book.stock}
+                </small>
 
-                  <button
-                    className="btn btn-warning w-100 mb-2"
-                    onClick={() => addToCart(book)}
-                  >
-                    🛒 Agregar al carrito
-                  </button>
+                <button
+                  className="btn btn-warning fw-bold mb-2"
+                  onClick={() => addToCart(book)}
+                >
+                  🛒 Agregar al carrito
+                </button>
 
-                  <Link
-                    to={`/book/${book.id}`}
-                    className="btn btn-primary w-100"
-                  >
-                    Ver detalle
-                  </Link>
-
-                </div>
+                <Link
+                  to={`/book/${book.id}`}
+                  className="btn btn-dark"
+                >
+                  Ver detalle
+                </Link>
 
               </div>
 
