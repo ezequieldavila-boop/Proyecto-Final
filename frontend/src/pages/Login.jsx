@@ -12,63 +12,73 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await api.post("/auth/login", {
+      const res = await api.post("/auth/login", {
         email,
         password,
       });
 
-      const user = response.data.user;
+      const user = res.data.user;
 
-      // 🔥 GUARDO TODO BIEN
-      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      // opcional (para tu navbar actual)
-      localStorage.setItem("name", user.name);
-      localStorage.setItem("role", user.role);
-
-      if (user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
+      navigate(user.role === "admin" ? "/admin" : "/");
 
       window.location.reload();
 
-    } catch (error) {
-      console.log(error);
-      alert("Correo o contraseña incorrectos");
+    } catch {
+      alert("Error en login");
     }
   };
 
   return (
-    <div className="container" style={{ paddingTop: "120px" }}>
+    <div className="container" style={{ marginTop: "120px" }}>
+      <div className="row justify-content-center">
 
-      <h2>Iniciar sesión</h2>
+        <div className="col-md-5">
 
-      <form onSubmit={login}>
+          <div className="card shadow">
 
-        <input
-          className="form-control mb-2"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+            <div className="card-body p-4">
 
-        <input
-          className="form-control mb-3"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+              <h3 className="text-center mb-4">
+                Iniciar sesión
+              </h3>
 
-        <button className="btn btn-warning w-100">
-          Iniciar sesión
-        </button>
+              <form onSubmit={login}>
 
-      </form>
+                <input
+                  className="form-control mb-3"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
 
+                <input
+                  className="form-control mb-3"
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <button className="btn btn-warning w-100">
+                  Entrar
+                </button>
+
+              </form>
+
+              <div className="mt-3 text-center">
+                <Link to="/register">Crear cuenta</Link>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
     </div>
   );
 }

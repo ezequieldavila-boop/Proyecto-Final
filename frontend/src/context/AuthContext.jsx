@@ -7,34 +7,25 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
-
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
+    if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
   const login = (userData, token) => {
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("role", userData.role);
+    localStorage.setItem("name", userData.name);
 
     setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
+    localStorage.clear();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        login,
-        logout,
-      }}
-    >
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

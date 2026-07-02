@@ -3,111 +3,88 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 function Cart() {
-  const { cart, removeFromCart, clearCart } =
-    useContext(CartContext);
-
+  const { cart, removeFromCart, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("token");
-
   const total = cart.reduce(
-    (acc, book) => acc + Number(book.price),
+    (acc, item) => acc + item.price * item.qty,
     0
   );
 
   return (
-    <div
-      className="container"
-      style={{
-        paddingTop: "120px",
-        paddingBottom: "80px",
-      }}
-    >
-      <h1 className="mb-4">🛒 Carrito de Compras</h1>
+    <div className="container mt-5 fade-in">
+
+      <h2 className="mb-4">🛒 Carrito de Compras</h2>
 
       {cart.length === 0 ? (
         <div className="alert alert-info">
-          Tu carrito está vacío.
+          No hay productos en el carrito
         </div>
       ) : (
         <>
-          {cart.map((book, index) => (
-            <div
-              key={index}
-              className="card shadow-sm mb-3"
-            >
-              <div className="card-body d-flex justify-content-between align-items-center">
+          <div className="row">
 
-                <div>
+            <div className="col-md-8">
 
-                  <h5>{book.title}</h5>
+              {cart.map((item) => (
+                <div
+                  key={item.id}
+                  className="card mb-3 shadow-sm p-3 d-flex flex-row justify-content-between align-items-center"
+                >
 
-                  <p className="mb-1">
-                    <strong>Autor:</strong> {book.author}
-                  </p>
+                  <div>
+                    <h5 className="mb-1">{item.title}</h5>
+                    <p className="mb-0">
+                      Cantidad: {item.qty}
+                    </p>
+                    <strong>${item.price * item.qty}</strong>
+                  </div>
 
-                  <p className="mb-0">
-                    <strong>Precio:</strong> ${book.price}
-                  </p>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    Eliminar
+                  </button>
 
                 </div>
+              ))}
+
+            </div>
+
+            {/* RESUMEN */}
+            <div className="col-md-4">
+
+              <div className="card shadow p-3">
+
+                <h4>Total</h4>
+
+                <h2 className="text-success">
+                  ${total}
+                </h2>
 
                 <button
-                  className="btn btn-danger"
-                  onClick={() => removeFromCart(index)}
+                  className="btn btn-success w-100 mt-3"
+                  onClick={() => navigate("/checkout")}
                 >
-                  Eliminar
+                  💳 Ir a pagar
                 </button>
 
-              </div>
-            </div>
-          ))}
-
-          <div className="card shadow mt-4">
-
-            <div className="card-body">
-
-              <h3 className="mb-3">
-                Total: ${total}
-              </h3>
-
-              <div className="d-flex gap-3">
-
                 <button
-                  className="btn btn-outline-danger"
+                  className="btn btn-warning w-100 mt-2"
                   onClick={clearCart}
                 >
                   Vaciar carrito
                 </button>
-
-                {token ? (
-
-                  <button
-                    className="btn btn-success"
-                    onClick={() => navigate("/checkout")}
-                  >
-                    Finalizar compra
-                  </button>
-
-                ) : (
-
-                  <button
-                    className="btn btn-warning"
-                    onClick={() => navigate("/login")}
-                  >
-                    Iniciar sesión para comprar
-                  </button>
-
-                )}
 
               </div>
 
             </div>
 
           </div>
-
         </>
       )}
+
     </div>
   );
 }

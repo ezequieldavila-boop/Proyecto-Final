@@ -1,594 +1,83 @@
-/* ==========================
-   GENERAL
-========================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#f5f6fa;
-    font-family:Arial, Helvetica, sans-serif;
-    overflow-x:hidden;
-}
-
-/* ==========================
-   NAVBAR
-========================== */
-
-.navbar{
-
-    transition:.4s;
-
-    padding:18px 0;
-}
-
-.navbar-brand{
-
-    font-size:30px;
-
-    font-weight:bold;
-}
-
-.nav-link{
-
-    color:white !important;
-
-    margin-left:20px;
-
-    transition:.3s;
-}
-
-.nav-link:hover{
-
-    color:#ffc107 !important;
-}
-
-/* ==========================
-   HERO
-========================== */
-
-.hero{
-
-    min-height:100vh;
-
-    display:flex;
-
-    align-items:center;
-
-    background-size:cover;
-
-    background-position:center;
-
-    position:relative;
-}
-
-.hero::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:rgba(0,0,0,.35);
-}
-
-.hero .container{
-
-    position:relative;
-
-    z-index:10;
-}
-
-.hero-content{
-
-    max-width:650px;
-
-    color:white;
-}
-
-.hero h1{
-
-    font-size:72px;
-
-    font-weight:800;
-
-    line-height:1.1;
-
-    margin-bottom:25px;
-}
-
-.hero p{
-
-    font-size:24px;
-
-    color:#f3f3f3;
-
-    line-height:1.7;
-}
-
-.hero .btn{
-
-    padding:15px 35px;
-
-    border-radius:12px;
-
-    font-size:18px;
-}
-
-/* ==========================
-   FEATURES
-========================== */
-
-.feature-card{
-
-    background:white;
-
-    border-radius:22px;
-
-    padding:40px 30px;
-
-    text-align:center;
-
-    transition:.35s;
-
-    height:100%;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-.feature-card:hover{
-
-    transform:translateY(-12px);
-
-    box-shadow:0 25px 45px rgba(0,0,0,.15);
-}
-
-.feature-icon{
-
-    width:90px;
-
-    height:90px;
-
-    margin:auto;
-
-    margin-bottom:25px;
-
-    border-radius:50%;
-
-    background:#ffc107;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:40px;
-
-    box-shadow:0 10px 30px rgba(255,193,7,.4);
-}
-
-.feature-card h4{
-
-    margin-bottom:20px;
-
-    font-weight:bold;
-}
-
-.feature-card p{
-
-    color:#666;
-
-    line-height:1.8;
-}
-
-/* ==========================
-   STATS
-========================== */
-
-.stats-section{
-
-    background:#212529;
-
-    color:white;
-
-    padding:80px 0;
-}
-
-.stats-section h2{
-
-    font-size:50px;
-
-    color:#ffc107;
-
-    font-weight:bold;
-}
-
-.stats-section p{
-
-    font-size:20px;
-
-    margin-top:10px;
-}
-
-/* ==========================
-   CTA
-========================== */
-
-.cta-section{
-
-    background:white;
-
-    padding:90px 0;
-}
-
-.cta-section h2{
-
-    font-size:45px;
-
-    margin-bottom:20px;
-}
-
-.cta-section p{
-
-    margin-bottom:30px;
-}
-
-/* ==========================
-   CARDS CATALOGO
-========================== */
-
-.card{
-
-    border:none;
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    transition:.35s;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-
-.card:hover{
-
-    transform:translateY(-10px);
-
-    box-shadow:0 25px 45px rgba(0,0,0,.18);
-}
-
-.card img{
-
-    transition:.5s;
-}
-
-.card:hover img{
-
-    transform:scale(1.05);
-}
-
-.card-title{
-
-    font-weight:bold;
-}
-
-.btn-warning{
-
-    font-weight:bold;
 
-    border-radius:10px;
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-.btn-primary{
-
-    border-radius:10px;
-}
-
-/* ==========================
-   FOOTER
-========================== */
-
-footer{
-
-    background:#111;
-
-    color:white;
-
-    padding:40px 0;
-
-    margin-top:80px;
-}
-
-footer a{
-
-    color:#ffc107;
-
-    text-decoration:none;
-}
-
-footer a:hover{
-
-    color:white;
-}
-
-/* ==========================
-   RESPONSIVE
-========================== */
-
-@media(max-width:992px){
-
-.hero{
-
-padding-top:120px;
-
-text-align:center;
-
-}
-
-.hero-content{
-
-margin:auto;
-
-}
-
-.hero h1{
-
-font-size:50px;
-
-}
-
-.hero p{
-
-font-size:20px;
-
-}
-
-}
-
-@media(max-width:768px){
-
-.hero h1{
-
-font-size:38px;
-
-}
-
-.hero p{
-
-font-size:18px;
-
-}
-
-.feature-card{
-
-padding:30px 20px;
-
-}
-
-.stats-section h2{
-
-font-size:35px;
-
-}
-
-.cta-section h2{
-
-font-size:32px;
-
-}
-
-}
-/*========================
-CATALOGO
-========================*/
-
-.catalog-card{
-
-    transition:.35s;
-
-    overflow:hidden;
-
-    border-radius:20px;
-
-    border:none;
-}
-
-.catalog-card:hover{
-
-    transform:translateY(-10px);
-
-    box-shadow:0 20px 45px rgba(0,0,0,.18);
-}
-
-.catalog-card img{
-
-    transition:.45s;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.catalog-card:hover img{
-
-    transform:scale(1.08);
-}
-
-.catalog-card .badge{
-
-    font-size:14px;
-
-    border-radius:30px;
-
-    padding:8px 14px;
-}
-
-.catalog-card h3{
-
-    color:#198754;
-}
-
-.catalog-card button{
-
-    font-weight:bold;
-
-    border-radius:10px;
-}
-
-.catalog-card a{
-
-    border-radius:10px;
-}
-/*=====================
-DETALLE LIBRO
-======================*/
-
-.detail-image{
-
-    background:white;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    text-align:center;
-}
-
-.detail-image img{
-
-    max-height:600px;
-
-    object-fit:contain;
-}
-
-.detail-image:hover img{
-
-    transform:scale(1.04);
-
-    transition:.4s;
+.hover-lift {
+  transition: all 0.2s ease-in-out;
 }
-/*=========================
-FOOTER
-=========================*/
-
-.footer{
 
-    background:#111;
-
-    color:white;
-
-    padding:60px 0 20px;
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
-
-.footer h3,
-.footer h4{
-
-    color:#ffc107;
-
-    margin-bottom:20px;
+.book-card {
+  transition: all 0.3s ease;
 }
 
-.footer p{
-
-    color:#ddd;
+.book-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-
-.footer a{
-
-    color:#ddd;
-
-    text-decoration:none;
-
-    transition:.3s;
+.book-card {
+  transition: all 0.25s ease;
 }
-
-.footer a:hover{
 
-    color:#ffc107;
+.book-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
 }
-
-.footer hr{
-
-    margin:30px 0;
-
-    border-color:#444;
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
 }
-/*========================
-NAVBAR
-========================*/
 
-.navbar{
-
-    padding:18px 0;
-
-    transition:.3s;
-
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-.navbar-brand{
 
-    font-size:32px;
-
-    letter-spacing:1px;
-
+.book-card {
+  transition: 0.2s ease-in-out;
 }
-
-.nav-link{
-
-    font-weight:600;
-
-    margin-left:15px;
 
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-
-.nav-link:hover{
-
-    color:#ffc107 !important;
-
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
 }
-
-.dropdown-menu{
 
-    border:none;
-
-    border-radius:15px;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.15);
-
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-.dropdown-item:hover{
-
-    background:#ffc107;
-
-    color:black;
-
+.fade-in {
+  animation: fadeIn 0.4s ease-in;
 }
-/*=========================
-CHECKOUT
-=========================*/
-
-.form-control,
-.form-select{
-
-    padding:12px;
-
-    border-radius:12px;
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.form-control:focus,
-.form-select:focus{
-
-    box-shadow:none;
-
-    border-color:#ffc107;
-
+.feature-card {
+  transition: 0.3s ease;
 }
-
-.card{
-
-    border-radius:20px;
 
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
