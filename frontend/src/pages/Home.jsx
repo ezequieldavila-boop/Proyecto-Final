@@ -33,7 +33,7 @@ function Home() {
         </div>
       </div>
 
-      {/* FEATURES */}
+  
       <div className="container my-5">
 
         <h2 className="text-center mb-4">
@@ -88,7 +88,7 @@ function Home() {
 
       </div>
 
-      {/* CTA FINAL */}
+  
       <div className="bg-dark text-white text-center py-5">
 
         <h2>Empieza ahora</h2>

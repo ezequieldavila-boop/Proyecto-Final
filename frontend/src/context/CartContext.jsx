@@ -16,21 +16,11 @@ export function CartProvider({ children }) {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
-
-  useEffect(() => {
-  const syncCart = () => {
-    const updated = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(updated);
-  };
-
-  window.addEventListener("storage", syncCart);
-
-  return () => window.removeEventListener("storage", syncCart);
-}, []);
+  
   const addToCart = (book) => {
     setCart((prev) => {
       const exists = prev.find((item) => item.id === book.id);
-      
+
       if (exists) {
         return prev.map((item) =>
           item.id === book.id
