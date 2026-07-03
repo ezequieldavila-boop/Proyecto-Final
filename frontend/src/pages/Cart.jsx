@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import ToastAlert from "../components/ToastAlert";
 
 function Cart() {
   const { cart, removeFromCart, clearCart } = useContext(CartContext);

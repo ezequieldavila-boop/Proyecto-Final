@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function Register() {
@@ -14,26 +14,45 @@ function Register() {
     e.preventDefault();
 
     try {
-      await api.post("/auth/register", {
+      const res = await api.post("/auth/register", {
         name,
         lastname,
         email,
         password,
       });
 
-      alert("Cuenta creada correctamente");
-      navigate("/login");
+      // 🔥 AUTO LOGIN DESPUÉS DE REGISTRAR
+      const loginRes = await api.post("/auth/login", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", loginRes.data.token);
+      localStorage.setItem("name", loginRes.data.user.name);
+      localStorage.setItem("lastname", loginRes.data.user.lastname);
+      localStorage.setItem("role", loginRes.data.user.role);
+
+      alert("Cuenta creada e inicio de sesión automático ✔");
+
+      navigate("/");
+
+      window.location.reload();
+
     } catch (error) {
       console.log(error);
-      alert("Error al crear la cuenta");
+      alert("Error al crear cuenta");
     }
   };
 
   return (
     <div className="container mt-5">
+
       <div className="row justify-content-center">
+
         <div className="col-md-5">
-          <div className="card shadow-lg">
+
+          <div className="card shadow">
+
             <div className="card-body p-4">
 
               <h2 className="text-center mb-4">
@@ -43,37 +62,33 @@ function Register() {
               <form onSubmit={register}>
 
                 <input
-                  className="form-control mb-3"
+                  className="form-control mb-2"
                   placeholder="Nombre"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  required
                 />
 
                 <input
-                  className="form-control mb-3"
+                  className="form-control mb-2"
                   placeholder="Apellido"
                   value={lastname}
                   onChange={(e) => setLastname(e.target.value)}
-                  required
                 />
 
                 <input
+                  className="form-control mb-2"
                   type="email"
-                  className="form-control mb-3"
-                  placeholder="Correo electrónico"
+                  placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                 />
 
                 <input
+                  className="form-control mb-3"
                   type="password"
-                  className="form-control mb-4"
                   placeholder="Contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
                 />
 
                 <button className="btn btn-warning w-100">
@@ -82,19 +97,14 @@ function Register() {
 
               </form>
 
-              <hr />
-
-              <Link
-                to="/login"
-                className="btn btn-outline-dark w-100"
-              >
-                Ya tengo una cuenta
-              </Link>
-
             </div>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
   );
 }

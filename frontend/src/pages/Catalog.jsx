@@ -1,12 +1,19 @@
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import api from "../services/api";
+import ToastAlert from "../components/ToastAlert";
 import { CartContext } from "../context/CartContext";
 
 function Catalog() {
   const [books, setBooks] = useState([]);
-  const [search, setSearch] = useState("");
 
   const { addToCart } = useContext(CartContext);
+
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
 
   useEffect(() => {
     loadBooks();
@@ -16,64 +23,83 @@ function Catalog() {
     try {
       const res = await api.get("/books");
       setBooks(res.data);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const filtered = books.filter((b) =>
-    b.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const handleAddToCart = (book) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setToast({
+        show: true,
+        message: "⚠ Debes iniciar sesión",
+        type: "warning",
+      });
+      return;
+    }
+
+    // 🔥 IMPORTANTE: usar CONTEXT (no localStorage)
+    addToCart(book);
+
+    setToast({
+      show: true,
+      message: "🛒 Agregado al carrito",
+      type: "success",
+    });
+  };
 
   return (
-    <div className="container mt-5 fade-in">
+    <div className="container mt-5">
 
-      <div className="row mb-4">
-        <div className="col-md-6 mx-auto">
-          <input
-            className="form-control"
-            placeholder="🔎 Buscar libros..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </div>
+      <ToastAlert
+        show={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
+      />
+
+      <h2 className="mb-4 text-center">
+        Catálogo
+      </h2>
 
       <div className="row">
 
-        {filtered.map((book) => (
-          <div className="col-md-3 mb-4" key={book.id}>
+        {books.map((book) => (
+          <div key={book.id} className="col-md-4 mb-3">
 
-            <div className="card h-100 shadow-sm book-card">
+            <div className="card shadow-sm h-100">
 
               <img
-                src={book.image || "https://via.placeholder.com/300x400?text=Libro"}
+                src={book.image}
                 className="card-img-top"
-                style={{ height: "240px", objectFit: "cover" }}
+                style={{ height: "250px", objectFit: "cover" }}
               />
 
               <div className="card-body d-flex flex-column">
 
                 <h5>{book.title}</h5>
-                <p className="text-muted">{book.author}</p>
 
-                <h5 className="text-success">${book.price}</h5>
+                <p>{book.author}</p>
+
+                <h6 className="text-success">
+                  ${book.price}
+                </h6>
 
                 <button
                   className="btn btn-warning mt-auto"
-                  onClick={() => {
-                    const token = localStorage.getItem("token");
-
-                    if (!token) {
-                      alert("❌ Tenés que iniciar sesión para comprar");
-                      return;
-                    }
-
-                    addToCart(book);
-                  }}
+                  onClick={() => handleAddToCart(book)}
                 >
-                  🛒 Agregar al carrito
+                  🛒 Agregar
                 </button>
+
+                <Link
+                  to={`/book/${book.id}`}
+                  className="btn btn-primary mt-2"
+                >
+                  Ver detalle
+                </Link>
 
               </div>
 

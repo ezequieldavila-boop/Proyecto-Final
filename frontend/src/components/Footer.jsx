@@ -1,40 +1,80 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
-    <footer className="bg-dark text-white mt-5 p-5">
+    <footer className="bg-dark text-light mt-5 pt-5 pb-3">
 
       <div className="container">
 
         <div className="row">
 
-          <div className="col-md-4">
-            <h4>📚 BookVerse</h4>
-            <p>Tu librería online favorita</p>
+          {/* MARCA */}
+          <div className="col-md-4 mb-3">
+
+            <h4 className="text-warning fw-bold">
+              📚 BookVerse
+            </h4>
+
+            <p>
+              Tu tienda de libros online moderna.
+              Compra fácil, rápido y seguro.
+            </p>
+
           </div>
 
-          <div className="col-md-4">
-            <h5>Enlaces</h5>
-            <p>Inicio</p>
-            <p>Catálogo</p>
-            <p>Carrito</p>
+          {/* LINKS */}
+          <div className="col-md-4 mb-3">
+
+            <h5 className="text-white">
+              Navegación
+            </h5>
+
+            <ul className="list-unstyled">
+
+              <li>
+                <Link className="text-light text-decoration-none" to="/">
+                  Inicio
+                </Link>
+              </li>
+
+              <li>
+                <Link className="text-light text-decoration-none" to="/catalog">
+                  Catálogo
+                </Link>
+              </li>
+
+              <li>
+                <Link className="text-light text-decoration-none" to="/login">
+                  Login
+                </Link>
+              </li>
+
+              <li>
+                <Link className="text-light text-decoration-none" to="/register">
+                  Registro
+                </Link>
+              </li>
+
+            </ul>
+
           </div>
 
-          <div className="col-md-4">
-            <h5>Redes</h5>
+          {/* INFO */}
+          <div className="col-md-4 mb-3">
 
-            <div className="d-flex gap-3">
-              <span>📘</span>
-              <span>📸</span>
-              <span>🐦</span>
-            </div>
+            <h5>Contacto</h5>
+
+            <p>📍 Uruguay</p>
+            <p>📧 bookverse@email.com</p>
 
           </div>
 
         </div>
 
-        <hr />
+        <hr className="bg-light" />
 
-        <p className="text-center">
-          © 2026 BookVerse - Proyecto Final
+        <p className="text-center mb-0">
+          © {new Date().getFullYear()} BookVerse - Todos los derechos reservados
         </p>
 
       </div>

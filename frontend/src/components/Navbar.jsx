@@ -55,7 +55,9 @@ function Navbar() {
               <span
                 className="badge bg-warning text-dark position-absolute top-0 start-100 translate-middle"
               >
-                {cart.length}
+                <span className="badge bg-warning text-dark position-absolute top-0 start-100 translate-middle">
+                 {cart.length}
+              </span>
               </span>
             )}
 

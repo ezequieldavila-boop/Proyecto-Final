@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
@@ -6,65 +6,132 @@ function Checkout() {
   const { cart, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const total = cart.reduce((acc, i) => acc + i.price * i.qty, 0);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [payment, setPayment] = useState("card");
 
-  const pay = () => {
+  const total = cart.reduce(
+    (acc, i) => acc + i.price * i.qty,
+    0
+  );
+
+  const pay = (e) => {
+    e.preventDefault();
+
     alert("🎉 Compra realizada con éxito");
+
     clearCart();
     navigate("/");
   };
 
   return (
-    <div className="container mt-5 fade-in">
+    <div className="container mt-5">
 
-      <h2>💳 Checkout</h2>
+      <h2 className="mb-4 text-center">
+        💳 Checkout seguro
+      </h2>
 
-      {cart.length === 0 ? (
-        <div className="alert alert-info">
-          No hay productos en el carrito
+      <div className="row">
+
+        {/* FORMULARIO */}
+        <div className="col-md-7">
+
+          <div className="card shadow p-4">
+
+            <h5 className="mb-3">Datos del cliente</h5>
+
+            <form onSubmit={pay}>
+
+              <input
+                className="form-control mb-3"
+                placeholder="Nombre completo"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+
+              <input
+                className="form-control mb-3"
+                placeholder="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+
+              <input
+                className="form-control mb-3"
+                placeholder="Dirección"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+              />
+
+              <h6 className="mb-2">Método de pago</h6>
+
+              <select
+                className="form-select mb-3"
+                value={payment}
+                onChange={(e) => setPayment(e.target.value)}
+              >
+                <option value="card">💳 Tarjeta</option>
+                <option value="cash">💵 Efectivo</option>
+                <option value="transfer">🏦 Transferencia</option>
+              </select>
+
+              <button className="btn btn-success w-100">
+                Confirmar compra
+              </button>
+
+            </form>
+
+          </div>
+
         </div>
-      ) : (
-        <div className="row">
 
-          <div className="col-md-7">
+        {/* RESUMEN */}
+        <div className="col-md-5">
+
+          <div className="card shadow p-4">
+
+            <h5>Resumen del pedido</h5>
+
+            <hr />
 
             {cart.map((item) => (
-              <div className="card mb-3 p-3" key={item.id}>
-                <h5>{item.title}</h5>
-                <p>Cantidad: {item.qty}</p>
-                <p>${item.price * item.qty}</p>
+              <div
+                key={item.id}
+                className="d-flex justify-content-between mb-2"
+              >
+                <span>
+                  {item.title} x {item.qty}
+                </span>
+
+                <span>
+                  ${item.price * item.qty}
+                </span>
               </div>
             ))}
 
-          </div>
+            <hr />
 
-          <div className="col-md-5">
+            <h4 className="text-success">
+              Total: ${total.toFixed(2)}
+            </h4>
 
-            <div className="card p-3 shadow">
-
-              <h4>Total</h4>
-              <h2 className="text-success">${total}</h2>
-
-              <button
-                className="btn btn-success w-100 mt-3"
-                onClick={pay}
-              >
-                💳 Pagar
-              </button>
-
-              <button
-                className="btn btn-dark w-100 mt-2"
-                onClick={() => navigate("/cart")}
-              >
-                Volver
-              </button>
-
-            </div>
+            <button
+              className="btn btn-dark w-100 mt-3"
+              onClick={() => navigate("/cart")}
+            >
+              Volver al carrito
+            </button>
 
           </div>
 
         </div>
-      )}
+
+      </div>
 
     </div>
   );

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../services/api";
+import ToastAlert from "../components/ToastAlert";
 
 function Login() {
   const navigate = useNavigate();
@@ -8,48 +9,73 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
+
   const login = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await api.post("/auth/login", {
+      const response = await api.post("/auth/login", {
         email,
         password,
       });
 
-      const user = res.data.user;
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("name", response.data.user.name);
+      localStorage.setItem("role", response.data.user.role);
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(user));
+      setToast({
+        show: true,
+        message: "✔ Login exitoso",
+        type: "success",
+      });
 
-      navigate(user.role === "admin" ? "/admin" : "/");
+      setTimeout(() => {
+        navigate("/");
+        window.location.reload();
+      }, 1000);
 
-      window.location.reload();
-
-    } catch {
-      alert("Error en login");
+    } catch (error) {
+      setToast({
+        show: true,
+        message: "❌ Credenciales incorrectas",
+        type: "danger",
+      });
     }
   };
 
   return (
-    <div className="container" style={{ marginTop: "120px" }}>
+    <div className="container mt-5">
+
+      <ToastAlert
+        show={toast.show}
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
+      />
+
       <div className="row justify-content-center">
 
         <div className="col-md-5">
 
-          <div className="card shadow">
+          <div className="card shadow-lg">
 
             <div className="card-body p-4">
 
-              <h3 className="text-center mb-4">
+              <h2 className="text-center mb-4">
                 Iniciar sesión
-              </h3>
+              </h2>
 
               <form onSubmit={login}>
 
                 <input
                   className="form-control mb-3"
-                  placeholder="Email"
+                  type="email"
+                  placeholder="Correo"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -57,7 +83,7 @@ function Login() {
                 <input
                   className="form-control mb-3"
                   type="password"
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -68,9 +94,11 @@ function Login() {
 
               </form>
 
-              <div className="mt-3 text-center">
-                <Link to="/register">Crear cuenta</Link>
-              </div>
+              <hr />
+
+              <Link to="/register" className="btn btn-outline-dark w-100">
+                Crear cuenta
+              </Link>
 
             </div>
 
@@ -79,6 +107,7 @@ function Login() {
         </div>
 
       </div>
+
     </div>
   );
 }

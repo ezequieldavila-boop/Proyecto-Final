@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import Register from "./pages/Register";
 import Checkout from "./pages/Checkout";
+import ToastAlert from "./components/ToastAlert";
 
 function App() {
   return (
